@@ -1,8 +1,7 @@
-import base64
 from pathlib import Path
-
 import pandas as pd
 import streamlit as st
+from streamlit_pdf_viewer import pdf_viewer
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -198,17 +197,7 @@ def show_patient_summary(subject_id: str):
 
 
 def show_pdf(pdf_path: Path):
-    encoded = base64.b64encode(pdf_path.read_bytes()).decode("utf-8")
-    st.markdown(
-        f"""
-        <iframe
-            class="pdf-frame"
-            src="data:application/pdf;base64,{encoded}"
-            type="application/pdf">
-        </iframe>
-        """,
-        unsafe_allow_html=True,
-    )
+    pdf_viewer(str(pdf_path), height=820)
 
 
 st.markdown('<div class="hero-title">衛教 PDF 預覽系統</div>', unsafe_allow_html=True)
